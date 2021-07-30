@@ -49,7 +49,7 @@ if(rs.next()){
 	<th class="active">결제수단</th>
 	<td><%=payment %></td>
 </tr>
-<tr>
+
 </table>
 </div>
 <%
