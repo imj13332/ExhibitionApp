@@ -30,10 +30,12 @@ if(rs.next()){
 <section class="row">
 <div class="col-md-12">
 <form action="ExplaceModiProc.jsp">
-	<table class="table table-response table-striped">
+	<table class="table table-striped">
 		<tr>
 			<th>전시관 코드</th>
-			<td><input type="text" class="form-control"  value="<%=codes%>" name="codes" disabled/></td>
+			<td>
+			<p class="text-danger"><%=codes %> - 수정불가</p>
+			<input type="hidden" class="form-control"  value="<%=codes%>" name="codes" disabled/></td>
 		</tr>
 		<tr>
 			<th>전시관 이름</th>
@@ -49,9 +51,13 @@ if(rs.next()){
 		</tr>
 		<tr>
 		<th>개관시간</th>
-      <td><h4><%out.println(times.substring(1,3) + "시 ~ " + times.substring(4,6) + "까지"); %></h4>
-            OPEN : <input type="text" name="times1" class="form-control" value="<%=times.substring(1,3)%>"/>
-            CLOSE : <input type="text" name="times1" class="form-control" value="<%=times.substring(4,6)%>"/>
+      <td><h4>현재 운영 시간<%out.println(times.substring(1,3) + "시 ~ " + times.substring(4,6) + "까지"); %></h4>
+            OPEN : <input type="text" name="n1" class="form-control" value="<%=times.substring(1,3)%>"/>
+            CLOSE : <input type="text" name="n2" class="form-control" value="<%=times.substring(4,6)%>"/>
+            <!-- 나중에 문자열하고 합해서 times 필드에 넣어줄것.
+            n1 은 시작시간, n2 는 종료시간 
+            "s + n1 == s10" 
+             -->
       </td>
 		</tr>
 		<tr>
