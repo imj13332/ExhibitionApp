@@ -6,14 +6,13 @@
 <section class="row">
 <br/><br/>
 <div class="col-md-12">
-<h3 class="text-center">전시회 목록</h3>
+<h3 class="text-center">관람권 예약</h3>
 <%
 String sql = "select * from exhibition";
 pstmt = conn.prepareStatement(sql);
 rs = pstmt.executeQuery();
 if(rs.next()){
    do{
-      String exidx = rs.getString("exidx");
       String extitle = rs.getString("extitle");
       String genre = rs.getString("genre");
       String author = rs.getString("author"); 
@@ -22,22 +21,20 @@ if(rs.next()){
       String placename = rs.getString("placename");
       int exprice = rs.getInt("exprice");
       String sdate = rs.getString("sdate");
-      String edate = rs.getString("edate");
-      String docent = rs.getString("docent");
+    
+
 %>
 <div class="col-md-12">
-<form action="Reservation_proc.jsp?exidx=<%=exidx %>" method="post" name="ExFrm<%=exidx%>">
+<form action="Reservation_proc.jsp" method="post" >
 <table class="table">
 <tr class="active">
-   <th>전시회고유코드</th>
-   <th colspan="2">전시회명</th>
+   <th colspan="3">전시회명</th>
    <th>장르</th>
    <th>작가</th>
    <th>관람등급</th>
 </tr>
 <tr>
-   <td><input type="text" name="exidx" value="<%=exidx %>" class="inputStyle" disabled/></td>
-   <td colspan="2">
+   <td colspan="3">
    <input type="text" name="extitle" value="<%=extitle %>" class="inputStyle"/>
    </td>
    <td>
@@ -52,25 +49,33 @@ if(rs.next()){
 <tr class="active">
    <th colspan="2">전시장소 정보</th>
    <th>관람료</th>
-   <th>전시시작일자</th>
-   <th>전시종료일자</th>
-   <th>도슨트</th>
+   <th>관람일자</th>
+   <th>티켓매수</th>
+   <th>결제수단</th>
 </tr>
 <tr>
    <td colspan="2">
    <input type="text" name="placename" value="<%=placename %>" class="inputStyle"/></td>
    <td><input type="text" name="exprice" value="<%=exprice %>" class="inputStyle"/></td>
-   <td><input type="date" name="sdate" value="<%=sdate %>" class="inputStyle"/></td>
-   <td><input type="date" name="edate" value="<%=edate %>" class="inputStyle"/></td>
-   <td><input type="text" name="docent" value="<%=docent %>" class="inputStyle"/></td>
-</tr>
+  <td><input type="date" name="sdate" value="<%=sdate %>" class="inputStyle"/></td>
+   <td><input type="number" name="tcnt" value="1" class="inputStyle"/></td>
+   <td>
+   <select name="payment" class="form-control">
+   		<option value="신용카드">신용카드</option>
+   		<option value="무통장입금">무통장입금</option>
+   		<option value="카카오페이">카카오페이</option>
+   </select>
+   </td>
+
+
+
 <tr>
    <th colspan="1"  class="active">전시회 설명</th>
    <td colspan="3">
       <textarea rows="4" name="texts"><%=texts %></textarea>
    </td>
    <td colspan="2" class="ver">
-   <input type="submit" value="바로예약" class="btn btn-danger btn-block"/>
+   <input type="submit" value="예매하기" class="btn btn-block btn-success"/>
    </td>
 </tr>
 </table>
@@ -79,15 +84,9 @@ if(rs.next()){
 <p class="line">&nbsp;</p>
 <%
       } while(rs.next());
-   }else{out.println("예약실패");}
-try{
-	pstmt.close();
-	conn.close();
-	rs.close();
-}catch(Exception e){
-	e.printStackTrace();
-	out.println("오류 메세지 : " + e.getMessage());
-}
+   }else{
+      out.println("조회실패");
+   }
 %>
 </section>
 <%@ include file="./include/Footer.jsp" %>
